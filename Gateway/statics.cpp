@@ -1,11 +1,13 @@
 #include <Gateway/statics.h>
 
-IniReader Statics::SInireader;
-CsvReaderManager Statics::SCsvReader;
-Timer Statics::STimer;
+IniReader Statics::mInireader;
+CsvReaderManager Statics::mCsvReader;
+Timer Statics::mTimer;
+ClientsHandler Statics::mCltHandler;
+ServersHandler Statics::mSvrHandler;
 void Statics::Init()
 {
-    Statics::SInireader.ParseIniFile("gateway.ini");
+    Statics::mInireader.ParseIniFile("gateway.ini");
 }
 
 uint32_t Statics::GenerateGroupId()

@@ -4,14 +4,19 @@
 #include <msgtype.h>
 ServersHandler::ServersHandler()
 {
-    TasksManager::GetInstance().Add(MSG::MSG_S2S_REGISTER, this, &ServersHandler::OnRegister);
+    HandlerManager::GetInstance().Add(MSG::MSG_S2S_REGISTER, this, &ServersHandler::OnRegister);
+}
+
+void ServersHandler::Start(uint16_t port)
+{
+    watcher.Start(port, std::bind(&ServersHandler::ConnectTimeoutCB, this, std::placeholders::_1), std::bind(&ServersHandler::NewConnectCB, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 void ServersHandler::ProcessPackage()
 {
     Connector *conn;
     if(watcher.TryPop(conn)){
-        TasksManager::GetInstance().Execute(conn->payload);
+        HandlerManager::GetInstance().Execute(conn->payload);
     }
 }
 

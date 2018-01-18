@@ -76,7 +76,7 @@ void ConnectionManager::UpdateAllKcpTimer()
     ConnContainer->UpdateAllKcp(GetCurrentTimeMsec());
 }
 
-void ConnectionManager::Init(short port)
+void ConnectionManager::InitUdp(uint16_t port)
 {
     serverfd = ::socket(PF_INET, SOCK_DGRAM, 0);
     if(-1 == serverfd){
@@ -126,4 +126,11 @@ uint32_t ConnectionManager::UdpRecvPackage(std::string &data, Endport &ePort)
         data = std::string(buff, ret);
     }
     return ret;
+}
+
+void ConnectionManager::Init(uint16_t port)
+{
+    ConnContainer = MemPoolIns.newElement<ConnnectionContainer>(this);
+
+    InitUdp(port);
 }

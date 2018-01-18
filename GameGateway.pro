@@ -79,4 +79,4 @@ HEADERS += \
     Gateway/servershandler.h \
     Concurrent/concurrent_vector.h \
     Common/mysqlconnector.h \
-    Common/tasksmanager.h
+    Common/handlermanager.h

@@ -5,6 +5,8 @@
 #include <Common/csvreader.h>
 #include <Common/timer.h>
 #include <Gateway/payloadparser.h>
+#include <Gateway/clientshandler.h>
+#include <Gateway/servershandler.h>
 class Statics{
 
 public:
@@ -12,9 +14,11 @@ public:
 
     static uint32_t GenerateGroupId();
 public:
-    static IniReader SInireader;
-    static CsvReaderManager SCsvReader;
-    static Timer STimer;
+    static IniReader mInireader;
+    static CsvReaderManager mCsvReader;
+    static Timer mTimer;
+    static ClientsHandler mCltHandler;
+    static ServersHandler mSvrHandler;
 };
 
 #endif // STATICS_H

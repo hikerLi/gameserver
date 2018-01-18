@@ -2,7 +2,7 @@
 
 ClientsHandler::ClientsHandler()
 {
-    TasksManager::GetInstance().Add(MSG::MSG_C2S_PING, this, &ClientsHandler::OnPing);
+    HandlerManager::GetInstance().Add(MSG::MSG_C2S_PING, this, &ClientsHandler::OnPing);
 }
 
 ClientsHandler::ClientsHandler(ClientsHandler &&ch)
@@ -28,7 +28,7 @@ void ClientsHandler::ProcessPackage()
     Connector *conn = nullptr;
     while(watcher.TryPop(conn)){
         if(conn){
-            TasksManager::GetInstance().Execute(conn->payload);
+            HandlerManager::GetInstance().Execute(conn->payload);
         }
     }
 }

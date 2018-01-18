@@ -17,7 +17,7 @@ class ConnectionManager /*: Singleton<ConnectionManager>*/
 {
 public:
     template<class RegisterFunction>
-    ConnectionManager(RegisterFunction&& RFunc, short port);
+    ConnectionManager(RegisterFunction&& RFunc);
 
     /***
      * 描述：处理kcp网络包，将解包后的原始字符串数据放到任务队列。
@@ -48,6 +48,8 @@ public:
     }
 
     uint32_t UdpRecvPackage(std::string &data, Endport &ePort);
+
+    void Init(uint16_t port);
 private:
     int CreateConnection(const Endport &ipPort);
 
@@ -55,7 +57,7 @@ private:
 
     void UpdateAllKcpTimer();
 
-    void Init(short port);
+    void InitUdp(uint16_t port);
 
     uint32_t UdpSendMsg(const std::string &data, const Endport &ePort);
 
@@ -70,12 +72,9 @@ private:
 };
 
 template<class RegisterFunction>
-ConnectionManager::ConnectionManager(RegisterFunction &&RFunc, short port)
+ConnectionManager::ConnectionManager(RegisterFunction &&RFunc)
 {
     RegisterConnector = std::move(RFunc);
-    ConnContainer = MemPoolIns.newElement<ConnnectionContainer>(this);
-
-    Init(port);
 }
 
 //#define ConnMgr ConnectionManager::GetInstance()

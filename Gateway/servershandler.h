@@ -3,12 +3,14 @@
 
 #include <Common/tcpwatcher.h>
 #include <Concurrent/concurrent_vector.h>
-#include <Common/tasksmanager.h>
+#include <Common/handlermanager.h>
 // [SERVERMSG | msgtype | headerlen | msgheader | protobufferlen | protobuffers]
 class ServersHandler
 {
 public:
     ServersHandler();
+
+    void Start(uint16_t port);
 
     void ProcessPackage();
 

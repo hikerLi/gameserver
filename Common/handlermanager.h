@@ -6,7 +6,7 @@
 #include <Concurrent/concurrent_unordered_map.h>
 #include <Common/payloadparser.h>
 
-class TasksManager : public Singleton<TasksManager>{
+class HandlerManager : public Singleton<HandlerManager>{
 public:
     template<class TargetType, class FuncType>
     void Add(uint32_t msgid, TargetType *obj, FuncType&& func){

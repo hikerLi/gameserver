@@ -24,6 +24,8 @@ void EpollWatcher::Start()
     mThreadHandle = std::thread([&](){
         this->Loop();
     });
+
+    mThreadHandle.detach();
 }
 
 bool EpollWatcher::TryPop(Connector *conn)

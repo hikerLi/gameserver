@@ -87,7 +87,9 @@ void UdpWatcher::Start(uint16_t port, decltype(ConnectTimeoutCB) timeoutcb, decl
 
     mConnManager = MemPoolIns.newElement<ConnectionManager>([&](kcp_conv_t conv, const std::string &payload){
         this->RegisterConnector(conv, payload);
-    }, port);
+    });
+
+    mConnManager->Init(port);
 
     EpollWatcher::Start();
 }
